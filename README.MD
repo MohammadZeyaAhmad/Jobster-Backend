@@ -1,8 +1,8 @@
 # Jobster API
-
+`Deployed to Render https://jobster-cy8i.onrender.com`
 #### Starter
 
-The starter is a copy of jobs-api final project, just with additional data.
+
 
 #### Setup
 
@@ -32,53 +32,7 @@ npm start
 
 - you should see "Server is listening ...." text
 
-#### Spring Cleaning
 
-##### Remove Swagger
-
-- delete swagger.yaml file
-- remove these lines of code
-- delete swagger.yaml
-  app.js
-
-```js
-const swaggerUI = require('swagger-ui-express');
-const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./swagger.yaml');
-
-app.get('/', (req, res) => {
-  res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>');
-});
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-```
-
-#### Remove API Limiter
-
-- remove these lines of code
-
-app.js
-
-```js
-const rateLimiter = require('express-rate-limit');
-
-app.set('trust proxy', 1);
-app.use(
-  rateLimiter({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // limit each IP to 100 requests per windowMs
-  })
-);
-```
-
-#### Remove CORS
-
-- we don't want external JS apps to access our API (only our front-end)
-- remove these lines of code
-
-```js
-const cors = require('cors');
-app.use(cors());
-```
 
 #### Package.json
 
@@ -101,21 +55,6 @@ package.json
 
 - restart server with "npm run dev"
 
-##### Client Folder
-
-- let's explore client folder
-- open client folder
-- it's a react app built with CRA
-- it's the same as in my React Course (JOBSTER APP),
-  just base url points to our current server (instead of heroku app)
-
-utils/axios.js
-
-```js
-const customFetch = axios.create({
-  baseURL: '/api/v1',
-});
-```
 
 
 app.use(notFoundMiddleware);
@@ -168,32 +107,8 @@ res.status(StatusCodes.CREATED).json({
 
 - Login and Register Works Now :):):)
 
-#### Create Test User
 
-- test front-end request
-- in postman or front-end
-- make sure email and password are the same (or change the front-end)
 
-```js
-{
-    "name":"demo user",
-    "email":"testUser@test.com",
-    "password":"secret"
-}
-```
-
-- navigate to client/src/pages/Register.js
-- make sure email and password match your test user
-
-```js
-<button
-  type='button'
-  className='btn btn-block btn-hipster'
-  disabled={isLoading}
-  onClick={() =>
-  dispatch(loginUser({ email: 'testUser@test.com', password: 'secret' }))}>
-
-```
 
 #### Update User Functionality
 
