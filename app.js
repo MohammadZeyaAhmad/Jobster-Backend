@@ -32,6 +32,7 @@ app.use('/api/v1/jobs', authenticateUser, jobsRouter);
 app.use(
   cors({
     methods: "GET, POST, PUT,PATCH,DELETE",
+    origin:"*"
 
   })
 );
