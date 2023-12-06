@@ -29,19 +29,8 @@ app.use(xss());
 // routes
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/jobs', authenticateUser, jobsRouter);
-app.use(
-  cors({
-    methods: "GET, POST, PUT,PATCH,DELETE",
-    origin:"*"
+app.use(cors());
 
-  })
-);
-
-app.use(
-  cors({
-    methods: "GET, POST, PUT,PATCH",
-  })
-);
 
 app.use((req, res, next) => {
   console.log("origin ", req.headers.origin);
