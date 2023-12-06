@@ -36,27 +36,39 @@ app.use(
 
   })
 );
-// app.use((req, res, next) => {
-//   console.log("origin ", req.headers.origin);
-//   let allowedOrigins = ["http://localhost:3000", "http://localhost:8000"];
-//   let origin = req.headers.origin;
-//   if (allowedOrigins.indexOf(origin) > -1) {
-//     res.setHeader("Access-Control-Allow-Origin", origin);
-//   }
 
-//   res.header("Access-Control-Allow-Methods", "GET, POST, PUT,PATCH,DELETE");
-//   res.header("Access-Control-Allow-Credentials", "TRUE");
-//   res.header("X-XSS-Protection", "1; mode=block");
-//   res.header("Strict-Transport-Security", "max-age=31536000");
-//   res.header("X-Frame-Options", "SAMEORIGIN");
-//   res.header("X-Content-Type-Options", "nosniff");
+app.use(
+  cors({
+    methods: "GET, POST, PUT,PATCH",
+  })
+);
 
-//   if (res.method === "OPTIONS") {
-//     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
-//     return res.status(204).json({});
-//   }
-//   next();
-// });
+app.use((req, res, next) => {
+  console.log("origin ", req.headers.origin);
+  let allowedOrigins = [
+    "http://localhost:3000",
+    "http://localhost:8000",
+  ];
+  let origin = req.headers.origin;
+  
+  if (allowedOrigins.indexOf(origin) > -1) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT,PATCH");
+  res.setHeader("Access-Control-Allow-Origin", origin);
+  res.header("Access-Control-Allow-Credentials", "TRUE");
+  res.header("X-XSS-Protection", "1; mode=block");
+  res.header("Strict-Transport-Security", "max-age=31536000");
+  res.header("X-Frame-Options", "SAMEORIGIN");
+  res.header("X-Content-Type-Options", "nosniff");
+
+  if (res.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH");
+    return res.status(204).json({});
+  }
+  next();
+});
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
